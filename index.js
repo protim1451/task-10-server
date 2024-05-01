@@ -31,6 +31,7 @@ async function run() {
 
     const collection = client.db('tourist_spots').collection('spots_collection');
     const userCollection = client.db('tourist_spots').collection('user');
+    const CountryCollection = client.db('tourist_spots').collection('CountryCollection');
 
     app.post('/spots', async (req, res) => {
       try {
@@ -48,6 +49,20 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+
+    app.get('/CountryCollection', async (req, res) => {
+      try {
+        const countries = await CountryCollection.find().toArray();
+        console.log('Fetched countries:', countries); // Log the fetched countries
+        res.json(countries);
+      } catch (error) {
+        console.error('Error fetching countries:', error);
+        res.status(500).json({ error: 'Failed to fetch countries' });
+      }
+    });
+    
+    
+    
 
     app.get('/spots/:id', async (req, res) => {
       const id = req.params.id;
