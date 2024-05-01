@@ -56,9 +56,18 @@ async function run() {
       res.send(result);
     });
 
-    app.delete('spots/:id', async(req, res) =>{
-      
-    })
+    app.delete('/spots/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) };
+        const result = await collection.deleteOne(query);
+        res.json(result);
+      } catch (error) {
+        console.error('Error deleting spot:', error);
+        res.status(500).json({ error: 'Failed to delete spot' });
+      }
+    });
+
 
     app.get('/userSpots', async (req, res) => {
       try {
