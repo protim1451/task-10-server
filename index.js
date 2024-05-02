@@ -3,16 +3,20 @@ const cors = require('cors');
 require('dotenv').config();
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
+app.use(cors({
+  origin: ["https://b9a10-client-side-protim1451.web.app", "http://localhost:5173"]
+}));
 const port = process.env.PORT || 3000;
 
-const corsConfig = {
-  origin: 'https://b9a10-client-side-protim1451.web.app', // Adjust this based on your frontend origin
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE']
-};
-app.use(cors(corsConfig));
-app.options("", cors(corsConfig));
+// const corsConfig = {
+//   origin: 'https://b9a10-client-side-protim1451.web.app',
+//   credentials: true,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE']
+// };
+// app.use(cors(corsConfig));
+// app.options("", cors(corsConfig));
 app.use(express.json());
+
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.edgm8kl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -53,7 +57,7 @@ async function run() {
     app.get('/CountryCollection', async (req, res) => {
       try {
         const countries = await CountryCollection.find().toArray();
-        console.log('Fetched countries:', countries); // Log the fetched countries
+        console.log('Fetched countries:', countries);
         res.json(countries);
       } catch (error) {
         console.error('Error fetching countries:', error);
@@ -86,8 +90,8 @@ async function run() {
 
     app.get('/userSpots', async (req, res) => {
       try {
-        const userEmail = req.query.userEmail; // Retrieve user email from query parameters
-        const query = { userEmail: userEmail }; // Filter spots by user email
+        const userEmail = req.query.userEmail; 
+        const query = { userEmail: userEmail }; 
         const userSpots = await collection.find(query).toArray();
         res.json(userSpots);
       } catch (error) {
