@@ -8,13 +8,6 @@ app.use(cors({
 }));
 const port = process.env.PORT || 3000;
 
-// const corsConfig = {
-//   origin: 'https://b9a10-client-side-protim1451.web.app',
-//   credentials: true,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE']
-// };
-// app.use(cors(corsConfig));
-// app.options("", cors(corsConfig));
 app.use(express.json());
 
 
@@ -129,5 +122,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`listening on port ${port}`);
 });
