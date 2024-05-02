@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const corsConfig = {
-  origin: 'http://localhost:5173', // Adjust this based on your frontend origin
+  origin: 'https://b9a10-client-side-protim1451.web.app', // Adjust this based on your frontend origin
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE']
 };
@@ -26,7 +26,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+    // await client.connect();
     console.log("Connected to MongoDB");
 
     const collection = client.db('tourist_spots').collection('spots_collection');
